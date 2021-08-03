@@ -1,2 +1,2 @@
-# amazon-2.0
+# Amazon-2.0
 A different version of Amazon - HTML/CSS/JS/Tailwind CSS
