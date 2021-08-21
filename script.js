@@ -42,9 +42,9 @@ function generateItems(items) {
         let doc = document.createElement("div");
         doc.classList.add("main-product", "mr-10");
         doc.innerHTML = `
-        <div class="product-image h-52 w-48 bg-white rounded-lg flex justify-center items-center p-4">
+        <div class="product-image h-48 w-44 bg-white rounded-lg flex justify-center items-center p-4">
                 <img class="" src="${item.image}"
-                    alt="Nintendo Switch(2019)">
+                    alt="${item.name}">
             </div>
             <div class="product-name text-gray-700 font-bold mt-2 text-sm">
                 ${item.name}
@@ -52,7 +52,7 @@ function generateItems(items) {
             <div class="product-make text-green-700 font-bold">
                 ${item.make}
             </div>
-            <div class="product-rating text-yellow-300 font-bold my-1">
+            <div class="product-rating text-yellow-300 font-bold">
                 ⭐⭐⭐⭐ ${item.rating}
             </div>
             <div class="product-price font-bold text-gray-700 text-lg">
