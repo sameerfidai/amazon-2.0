@@ -3,9 +3,9 @@ function getCartItems() {
         let totalCount = 0;
         snapshot.forEach((doc) => {
             totalCount += doc.data().quantity;
-        })
+        });
         setCartCounter(totalCount);
-    })
+    });
 }
 
 function setCartCounter(totalCount) {

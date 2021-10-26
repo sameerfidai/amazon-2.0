@@ -1,18 +1,20 @@
 function getItems() {
-    db.collection("items").get().then((querySnapshot) => {
-        let items = [];
-        querySnapshot.forEach((doc) => {
-            items.push({
-                id: doc.id,
-                image: doc.data().image,
-                name: doc.data().name,
-                make: doc.data().make,
-                rating: doc.data().rating,
-                price: doc.data().price
-            })
+    db.collection("items")
+        .get()
+        .then((querySnapshot) => {
+            let items = [];
+            querySnapshot.forEach((doc) => {
+                items.push({
+                    id: doc.id,
+                    image: doc.data().image,
+                    name: doc.data().name,
+                    make: doc.data().make,
+                    rating: doc.data().rating,
+                    price: doc.data().price,
+                });
+            });
+            generateItems(items);
         });
-        generateItems(items)
-    });
 }
 
 function addToCart(item) {
@@ -20,8 +22,8 @@ function addToCart(item) {
     cartItem.get().then(function (doc) {
         if (doc.exists) {
             cartItem.update({
-                quantity: doc.data().quantity + 1
-            })
+                quantity: doc.data().quantity + 1,
+            });
         } else {
             cartItem.set({
                 image: item.image,
@@ -29,12 +31,11 @@ function addToCart(item) {
                 name: item.name,
                 price: item.price,
                 rating: item.rating,
-                quantity: 1
-            })
+                quantity: 1,
+            });
         }
-    })
+    });
 }
-
 
 function generateItems(items) {
     let itemsHTML = "";
@@ -56,19 +57,30 @@ function generateItems(items) {
                 ⭐⭐⭐⭐ ${item.rating}
             </div>
             <div class="product-price font-bold text-gray-700 text-lg">
-                $ ${numeral(item.price).format('$0,0.00')}
+                ${numeral(item.price).format("$0,0.00")}
             </div>
-        `
+        `;
 
         let addToCartEl = document.createElement("div");
-        addToCartEl.classList.add("flex", "justify-center", "items-center", "w-28", "h-8", "text-white", "bg-yellow-500", "cursor-pointer", "hover:bg-yellow-600", "rounded")
+        addToCartEl.classList.add(
+            "flex",
+            "justify-center",
+            "items-center",
+            "w-28",
+            "h-8",
+            "text-white",
+            "bg-yellow-500",
+            "cursor-pointer",
+            "hover:bg-yellow-600",
+            "rounded"
+        );
         addToCartEl.innerText = "Add to Cart";
         addToCartEl.addEventListener("click", function () {
             addToCart(item);
         });
         doc.appendChild(addToCartEl);
         document.querySelector(".main-section-products").appendChild(doc);
-    })
+    });
 }
 
 getItems();
